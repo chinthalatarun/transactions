@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index page</title>
+    <style>
+        .head{
+            display: flex;
+            padding: 20%;
+            justify-content: center;
+            
+            
+        }
+        button{
+            padding: 20%;
+            margin: 2%;
+            color: rgb(128, 12, 43);
+            font-size: medium;
+        }
+        
+
+    </style>
+</head>
+<body>
+    <h1 style="color: aqua;">Javasript works</h1>
+    <div class="head">
+    <button onclick="redirectToTransactions()">Transactions</button>
+    <button onclick="redirectToShopping()">Shopping</button>
+    <button onclick="redirectToApiCalling()">Api calling</button>
+    </div>
+    <script>
+        function redirectToTransactions(){
+            window.location.href='transactions/main.html';
+        }
+        function redirectToShopping(){
+            window.location.href='shopping/main2.html';
+        }
+        function redirectToApiCalling(){
+            window.location.href='apicalling/api.html';
+        }
+
+        
+    </script>
+</body>
+</html>
