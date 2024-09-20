@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debit</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            background-image: url('C:\Users\DT054\Downloads\js\IMAGES\MONEY.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        input[type="number"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #ee4939;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+
+        button:hover {
+            background-color: #5e0c06;
+        }
+
+        .message {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .back-button {
+            background-color: #51e636;
+            color: #000000;
+        }
+
+        .back-button:hover {
+            background-color: #176800;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Debit Amount</h1>
+        <input type="number" id="amountInput" placeholder="Enter amount" min="0" required>
+        <button onclick="debitAmount()">Debit Amount</button>
+        <p id="message" class="message"></p>
+        <br>
+        <button type="button" class="back-button" onclick="redirectToMain()">Back to Main</button>
+    </div>
+
+    <script>
+        if (localStorage.getItem('authenticated') !== 'true') {
+            window.location.href = "verify-pin.html"; 
+        }
+
+        function debitAmount() {
+            const amount = parseFloat(document.getElementById('amountInput').value);
+            const message = document.getElementById('message');
+
+            if (isNaN(amount) || amount <= 0) {
+                message.textContent = "Please enter a valid amount.";
+                message.style.color = "red";
+            } else {
+                let balance = parseFloat(localStorage.getItem('balance')) || 50000; // Default balance if not set
+                
+                if (amount <= balance) {
+                    balance -= amount;
+                    localStorage.setItem('balance', balance);
+                    
+                    alert(`Successfully debited ₹${amount.toFixed(2)} from your account.`);
+                    message.textContent = `Successfully debited ₹${amount.toFixed(2)} from your account.`;
+                    message.style.color = "green";
+                } else {
+                    message.textContent = "Insufficient balance.";
+                    message.style.color = "red";
+                }
+                
+                document.getElementById('amountInput').value = ""; 
+            }
+        }
+
+        function redirectToMain() {
+            window.location.href = "main.html"; 
+        }
+    </script>
+</body>
+</html>

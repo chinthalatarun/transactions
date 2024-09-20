@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            background-image: url('C:\Users\DT054\Downloads\js\IMAGES\MONEY.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        p {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            line-height: 1.6;
+            width: 400px;
+            text-align: left;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: rgb(43, 4, 9);
+        }
+
+        .label {
+            font-weight: bold;
+            color: rgb(124, 36, 135);
+        }
+
+        button {
+            background-color: #a7e84b;
+            color: white;
+            padding: 15px 30px;
+            margin: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            display: inline-block;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #721408;
+        }
+    </style>
+</head>
+<body>
+    <p>
+        <span class="label">Bank Name:</span> <span class="highlight">ANDHRA BANK</span><br>
+        <span class="label">Branch:</span> <span class="highlight">MARRIAPEM</span><br>
+        <span class="label">Account Number:</span> <span class="highlight">9766227860</span><br>
+        <span class="label">ISFC Code:</span> <span class="highlight">NXS9256SK</span><br>
+        <span class="label">Account Holder Name:</span> <span class="highlight">K.TARUN</span><br>
+        <span class="label">Account Holder Contact Number:</span> <span class="highlight">1234567890</span><br>
+        <span class="label">Bank Customer Care Number:</span> <span class="highlight">0987654321</span><br>
+        <span class="label">Pin:</span> <span class="highlight">1234</span><br>
+        <span class="label">Balance:</span> <span id="balance" class="highlight">50000</span>
+    </p>
+    <button type="button" onclick="redirectToPage('credit.html')">Credit Amount</button>
+    <button type="button" onclick="redirectToPage('debit.html')">Debit Amount</button>
+    <button type="button" onclick="window.location.href='main.html'">BACK TO HOME PAGE</button>
+    
+    <script>
+        if (localStorage.getItem('authenticated') !== 'true') {
+            window.location.href = "verify-pin.html"; 
+        }
+
+        function updateBalance() {
+            const balance = parseFloat(localStorage.getItem('balance')) || 50000; 
+            document.getElementById("balance").innerText = "₹" + balance.toFixed(2);
+        }
+
+        function redirectToPage(page) {
+            localStorage.setItem('redirectUrl', page); 
+            window.location.href = "verify-pin.html"; 
+        }
+
+        window.onload = function() {
+            updateBalance();
+        };
+    </script>
+</body>
+</html>

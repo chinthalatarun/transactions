@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify PIN</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            background-image: url('C:\Users\DT054\Downloads\js\IMAGES\MONEY.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        input[type="password"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between; /* Align buttons to left and right */
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #54d939;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+          
+        }
+
+        button:hover {
+            background-color: #07350d;
+        }
+
+        .back-button {
+            background-color: #e63636;
+            color: #000000;
+        }
+
+        .back-button:hover {
+            background-color: #681000;
+            color: #ffffff;
+        }
+
+        #message {
+            margin-top: 10px;
+            color: red;
+        }
+
+        /* Scrolling text */
+        .scrolling-text {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #333;
+            overflow: hidden;
+            white-space: nowrap;
+            box-sizing: border-box;
+            width: 100%;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
+
+        .scrolling-text p {
+            display: inline-block;
+            animation: scroll 10s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes scroll {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h2>Verify PIN</h2>
+        <input type="password" id="pinInput" placeholder="Enter PIN" required>
+        <div class="button-container">
+            <button class="back-button" onclick="goBack()">Back to Main</button>
+            <button onclick="verifyPin()">Submit</button>
+        </div>
+        <p id="message"></p>
+        <div class="scrolling-text">
+            <p>Hint: The PIN is 4321</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('pinInput').value = '';
+        });
+
+        function verifyPin() {
+            const pin = document.getElementById('pinInput').value;
+            const message = document.getElementById('message');
+
+            if (pin === '4321') { 
+                localStorage.setItem('authenticated', 'true');
+                const redirectUrl = localStorage.getItem('redirectUrl') || 'account.html';
+                localStorage.removeItem('redirectUrl'); 
+                alert('PIN verified successfully!');
+                window.location.href = redirectUrl;
+            } else {
+                message.textContent = 'Invalid PIN. Please try again.';
+                message.style.color = 'red';
+            }
+        }
+
+        function goBack() {
+            window.location.href = 'main.html';
+        }
+    </script>
+</body>
+</html>

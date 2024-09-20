@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Display</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .main {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2%;
+            padding: 20px;
+        }
+        .box {
+            display: flex;
+            flex-direction: column;
+            margin: 2%;
+            padding: 15px;
+            background-color: rgb(216, 250, 215);
+            height: 400px;
+            width: 300px;
+            border-radius: 5%;
+            box-sizing: border-box; 
+            overflow: hidden; 
+        }
+        .box img {
+            width: 100%;
+            height: 60%; 
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+        .box p, .box b, .box span {
+            margin: 5px 0;
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+            white-space: nowrap; 
+        }
+        .header {
+            text-align: center;
+            margin: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="header">Our Product Collection</h1>
+    <div class="main"></div>
+    <script>
+        async function getData() {
+            const mainContainer = document.querySelector(".main");
+
+            let response = await fetch('https://dummyjson.com/products');
+            let data = await response.json();
+            let products = data.products;
+
+            products.forEach(product => {
+                let box = document.createElement("div");
+                box.classList.add("box");
+
+                let img = document.createElement("img");
+                img.src = product.images[0]; 
+                box.appendChild(img);
+
+                let p = document.createElement("p");
+                p.textContent = "Id No: " + product.id;
+                box.appendChild(p);
+
+                let b = document.createElement("b");
+                b.innerHTML = "Price: " + product.price + "₹";
+                box.appendChild(b);
+
+                let span = document.createElement("span");
+                span.textContent = "Brand Name: " + product.brand;
+                box.appendChild(span);
+
+                mainContainer.appendChild(box);
+            });
+        }
+
+        getData();
+    </script>
+</body>
+</html>
